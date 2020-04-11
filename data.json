@@ -95,11 +95,11 @@
     "misc": [
         {
             "title": "tty shells",
-            "subtitle": "python",
             "commands": [
                 {
                     "code": "python -c 'import pty;pty.spawn(\"/bin/bash\")'",
-                    "info": "spawn a tty shell"
+                    "info": "spawn a tty shell",
+					"subtitle": "python"
                 }
             ]
         },

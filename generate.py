@@ -9,5 +9,5 @@ with open('data.json') as json_file:
 
 rendered_template = template.render(data=data)
 
-with open("out.html", "w") as file:
+with open("index.html", "w") as file:
     file.write(rendered_template)

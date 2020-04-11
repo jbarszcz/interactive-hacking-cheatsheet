@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Pentest command generator</title>
+    <title>interactive hacking cheatsheet</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -10,17 +10,53 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
 
+<style>
+	body {
+		font-family: Lucida Console;
+		color: green;
+		background-color: black;
+	}
+
+	pre {
+		background-color: black;
+		color: white;
+		border-color: white;	
+	}
+
+	input[type="text"], textarea {
+		background-color : black;
+		border-color: gray;
+		color: red;
+	}
+
+	button {
+		color: gray;
+		background-color: black
+	}
+
+	.nav {
+
+		  border-bottom: 1px solid black;
+	}
+
+	.nav>li>a {
+		background-color: black !important;
+		color: gray;
+		border-radius: 0;
+		border-bottom: 1px solid white;
+	}
+</style>
 </head>
 
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <h1>Pentest command generator</h1>
-                <p>Interactive hacking cheatsheet</p>
+            <div class="col-md-9">
+                <h1>interactive hacking cheatsheet</h1>
+                <p>pentest command generator</p>
+				<hr/>
             </div>
         </div>
-        <hr />
         <div class="row">
             <div class="col-md-2">
                 <div class="form-group">
@@ -28,7 +64,7 @@
                     <label for="victimHostInput">Victim Host</label>
                     <input type="text" class="form-control" id="victimHostInput" placeholder="Victim's address"
                         value="127.0.0.1" onchange="loadCommands()">
-                    <label for="attackerHostInput">Attacker Host</label>
+                    <label for="attackerHostInput" style="margin-top: 10px">Attacker Host</label>
                     <input type="text" class="form-control" id="attackerHostInput" placeholder="Attacker's address"
                         value="127.0.0.1" onchange="loadCommands()">
                 </div>
@@ -39,7 +75,7 @@
                     <label for="victimPortInput">Port</label>
                     <input type="text" class="form-control" id="victimPortInput" placeholder="Victim's address"
                         value="1234" onchange="loadCommands()">
-                    <label for="attackevictimPortInput">Port</label>
+                    <label for="attackevictimPortInput" style="margin-top: 10px">Port</label>
                     <input type="text" class="form-control" id="attackerPortInput" placeholder="Victim's address"
                         value="1234" onchange="loadCommands()">
                 </div>
@@ -80,6 +116,12 @@
                         <h2>{{ entry.title }}</h2>
                     </div>
                     {% for command in entry.commands %}
+					{% if command.subtitle is defined %}
+					<div class="row">
+					ss
+						<h4>{{ command.subtitle }} </h4>
+					</div>
+					{% endif %}
                     {% set id =  'enum_' + entry.title | replace(" ", "_")  + loop.index | string %}
                     <div class="row">
                         <pre style="margin-top: 10px"><code id="{{ id }}"></code></pre>
@@ -106,6 +148,11 @@
                         <h2>{{ entry.title }}</h2>
                     </div>
                     {% for command in entry.commands %}
+					{% if command.subtitle is defined %}
+					<div class="row">
+						<h4>{{ command.subtitle }} </h4>
+					</div>
+					{% endif %}
                     {% set id =  'shells_' + entry.title | replace(" ", "_")  + loop.index | string %}
                     <div class="row">
                         <pre style="margin-top: 10px"><code id="{{ id }}"></code></pre>
@@ -140,6 +187,11 @@
                         <h2>{{ entry.title }}</h2>
                     </div>
                     {% for command in entry.commands %}
+					{% if command.subtitle is defined %}
+					<div class="row">
+						<h4>{{ command.subtitle }} </h4>
+					</div>
+					{% endif %}
                     {% set id =  'http_' + entry.title | replace(" ", "_")  + loop.index | string %}
                     <div class="row">
                         <pre style="margin-top: 10px"><code id="{{ id }}"></code></pre>
@@ -164,6 +216,11 @@
                         <h2>{{ entry.title }}</h2>
                     </div>
                     {% for command in entry.commands %}
+					{% if command.subtitle is defined %}
+					<div class="row">
+						<h4>{{ command.subtitle }} </h4>
+					</div>
+					{% endif %}
                     {% set id =  'misc_' + entry.title | replace(" ", "_")  + loop.index | string %}
                     <div class="row">
                         <pre style="margin-top: 10px"><code id="{{ id }}"></code></pre>
