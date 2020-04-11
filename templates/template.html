@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Pentest command generator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Pentest command generator</h1>
+                <p>Interactive hacking cheatsheet</p>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+
+                    <label for="victimHostInput">Victim Host</label>
+                    <input type="text" class="form-control" id="victimHostInput" placeholder="Victim's address"
+                        value="127.0.0.1" onchange="loadCommands()">
+                    <label for="attackerHostInput">Attacker Host</label>
+                    <input type="text" class="form-control" id="attackerHostInput" placeholder="Attacker's address"
+                        value="127.0.0.1" onchange="loadCommands()">
+                </div>
+            </div>
+
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label for="victimPortInput">Port</label>
+                    <input type="text" class="form-control" id="victimPortInput" placeholder="Victim's address"
+                        value="1234" onchange="loadCommands()">
+                    <label for="attackevictimPortInput">Port</label>
+                    <input type="text" class="form-control" id="attackerPortInput" placeholder="Victim's address"
+                        value="1234" onchange="loadCommands()">
+                </div>
+            </div>
+            <!--           <div class="col-md-1">
+                <div class="form-check">
+
+                    <input type="checkbox" checked="checked" class="form-check-input" id="linux">
+                    <label class="form-check-label" for="linux">Linux</label>
+
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-check">
+
+
+                    <input type="checkbox" checked="checked" class="form-check-input" id="windows">
+                    <label class="form-check-label" for="windows">Windows</label>
+
+                </div>
+            </div>
+        -->
+
+
+        </div>
+        <ul class="nav nav-tabs">
+            {% for category in data%}
+            <li><a data-toggle="tab" href="#{{ category }}">{{ category }}</a></li>
+            {% endfor %}
+        </ul>
+
+
+        <div class="col-md-9">
+            <div class="tab-content">
+                <div id="enum" class="tab-pane fade in active">
+                    {% for entry in data.enum %}
+                    <div class="row">
+                        <h2>{{ entry.title }}</h2>
+                    </div>
+                    {% for command in entry.commands %}
+                    {% set id =  'enum_' + entry.title | replace(" ", "_")  + loop.index | string %}
+                    <div class="row">
+                        <pre style="margin-top: 10px"><code id="{{ id }}"></code></pre>
+                        <button class="btn" data-clipboard-target="#{{ id }}">
+                            <span class="glyphicon glyphicon-copy"></span>
+                        </button>
+                        <button class="btn" data-toggle="tooltip" title="{{command.info}} " data-placement="bottom">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </button>
+                    </div>
+                    {% endfor %}
+                    {% endfor %}
+
+                </div>
+
+
+
+                <div id="shells" class="tab-pane fade">
+
+
+                    {% for entry in data.shells %}
+
+                    <div class="row">
+                        <h2>{{ entry.title }}</h2>
+                    </div>
+                    {% for command in entry.commands %}
+                    {% set id =  'shells_' + entry.title | replace(" ", "_")  + loop.index | string %}
+                    <div class="row">
+                        <pre style="margin-top: 10px"><code id="{{ id }}"></code></pre>
+                        <button class="btn" data-clipboard-target="#{{ id }}">
+                            <span class="glyphicon glyphicon-copy"></span>
+                        </button>
+                        <button class="btn" data-toggle="tooltip" title="{{command.info}} " data-placement="bottom">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </button>
+                    </div>
+                    {% endfor %}
+                    {% endfor %}
+
+                </div>
+
+
+                <div id="http" class="tab-pane fade">
+                    <div class="row">
+                        <h2>file name</h2>
+
+
+                        <div class="form-group">
+
+                            <input type="text" class="form-control" id="filename" placeholder="File name"
+                                value="exploit.sh" onchange="loadCommands()">
+
+                        </div>
+                    </div>
+                    {% for entry in data.http %}
+
+                    <div class="row">
+                        <h2>{{ entry.title }}</h2>
+                    </div>
+                    {% for command in entry.commands %}
+                    {% set id =  'http_' + entry.title | replace(" ", "_")  + loop.index | string %}
+                    <div class="row">
+                        <pre style="margin-top: 10px"><code id="{{ id }}"></code></pre>
+                        <button class="btn" data-clipboard-target="#{{ id }}">
+                            <span class="glyphicon glyphicon-copy"></span>
+                        </button>
+                        <button class="btn" data-toggle="tooltip" title="{{command.info}} " data-placement="bottom">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </button>
+                    </div>
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+
+
+
+                <div id="misc" class="tab-pane fade">
+
+                    {% for entry in data.misc %}
+
+                    <div class="row">
+                        <h2>{{ entry.title }}</h2>
+                    </div>
+                    {% for command in entry.commands %}
+                    {% set id =  'misc_' + entry.title | replace(" ", "_")  + loop.index | string %}
+                    <div class="row">
+                        <pre style="margin-top: 10px"><code id="{{ id }}"></code></pre>
+                        <button class="btn" data-clipboard-target="#{{ id }}">
+                            <span class="glyphicon glyphicon-copy"></span>
+                        </button>
+                        <button class="btn" data-toggle="tooltip" title="{{command.info}} " data-placement="bottom">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </button>
+                    </div>
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+                <div id="links" class="tab-pane fade">
+                    <div class="row">
+                        <h2>useful links</h2>
+                    </div>
+
+                    <h4>enum</h4>
+
+                    <ul>
+                        <li><a href=https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
+                                target="_blank">LinEnum.sh</a></li>
+                        <li><a href=https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/linPEAS/linpeas.sh
+                                target="_blank">linPEAS</a></li>
+
+
+                        <li> <a href=https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/winPEAS/winPEASbat/winPEAS.bat
+                                target="_blank">winPEAS </a>
+                            (.bat version) </li>
+                    </ul>
+                    <h4>shells</h4>
+                    <ul>
+                        <li><a href=https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/master/php-reverse-shell.php
+                                target="_blank">
+                                PHP reverse shell file</a> by pentestmonkey</li>
+
+                    </ul>
+                    <h4>exploitation</h4>
+                    <ul>
+                        <li><a href=https://gtfobins.github.io target="_blank">GTFOBins</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+</body>
+<script>
+    function loadCommands() {
+        var victimHost = document.getElementById("victimHostInput").value
+        var victimPort = document.getElementById("victimPortInput").value
+        var attackerHost = document.getElementById("attackerHostInput").value
+        var attackerPort = document.getElementById("attackerPortInput").value
+        var filename = document.getElementById("filename").value
+
+        var commands = {
+            {% for category in data %}
+        {% for entry in data[category] %}
+        {% for command in entry.commands %}
+        "{{category }}_{{ entry.title | replace(" ", "_")}}{{ loop.index }}": `{{ command.code }}`,
+            {% endfor %}
+    {% endfor %}
+    {% endfor %}
+
+        }
+
+
+    for (var commandId in commands) {
+        console.log(commandId)
+        document.getElementById(commandId).innerText = commands[commandId]
+    }
+}
+
+
+    loadCommands()
+
+</script>
+
+<script>
+    var clipboard = new ClipboardJS('.btn');
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+</html>
